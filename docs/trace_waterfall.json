@@ -1,29 +1,170 @@
 [
   {
     "step": 1,
-    "query": "Chào bạn, bạn có thể giới thiệu quy chế học vụ cơ bản của Đại học VinUni không?",
+    "query": "Chào bạn, bạn có thể giới thiệu quy định nghỉ phép năm cơ bản của VinFast không?",
     "action_type": "FINAL_ANSWER",
-    "thought": "Câu hỏi chung về quy chế học vụ, trả lời trực tiếp không cần gọi Tool.",
-    "output": "[Mock Agent Response]: Xin chào! Quy chế học vụ VinUni yêu cầu sinh viên tích lũy tối thiểu 120 tín chỉ và duy trì GPA trên 2.0 để tốt nghiệp.",
-    "latency_ms": 2845.93
+    "thought": "Gemini phản hồi trực tiếp bằng văn bản (không cần gọi công cụ).",
+    "output": "Dưới đây là các quy định cơ bản về nghỉ phép năm tại VinFast:\n\n1. **Tiêu chuẩn ngày phép:** Nhân viên chính thức được hưởng **12 ngày phép năm** hưởng nguyên lương mỗi năm.\n2. **Quy trình xin nghỉ phép:** Đơn xin nghỉ phép năm cần được tạo và gửi trên hệ thống HR trước ngày nghỉ ít nhất **3 ngày làm việc** và phải được Quản lý trực tiếp phê duyệt.\n3. **Trường hợp hết ngày phép:** Khi đã sử dụng hết số ngày phép năm hiện có, nhân viên có thể đăng ký chuyển sang hình thức **nghỉ không lương**.\n\nNếu bạn cần hỗ trợ kiểm tra số ngày phép còn lại hoặc tạo đơn xin nghỉ phép, vui lòng cung cấp mã nhân viên để tôi có thể hỗ trợ chi tiết nhé!",
+    "latency_ms": 5596.89
   },
   {
     "step": 1,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "query": "Hãy kiểm tra giúp tôi số ngày phép năm còn lại của nhân viên VF2026001.",
     "action_type": "TOOL_EXECUTION",
-    "tool_name": "academic_query",
+    "thought": "Gemini quyết định gọi công cụ 'check_leave_balance' với tham số: {\"employee_id\": \"VF2026001\"}",
+    "tool_name": "check_leave_balance",
     "arguments": {
-      "student_id": "SV2026001"
+      "employee_id": "VF2026001"
     },
-    "observation": {},
-    "latency_ms": 799.12
+    "observation": {
+      "status": "SUCCESS",
+      "employee_id": "VF2026001",
+      "full_name": "Lê Hoàng Nam",
+      "leave_balance": {
+        "total": 12,
+        "used": 4,
+        "remaining": 8
+      },
+      "message": "Nhân viên Lê Hoàng Nam (VF2026001) còn 8/12 ngày phép năm."
+    },
+    "latency_ms": 6193.95
   },
   {
     "step": 2,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "query": "Hãy kiểm tra giúp tôi số ngày phép năm còn lại của nhân viên VF2026001.",
     "action_type": "FINAL_ANSWER",
-    "thought": "Tổng hợp kết quả từ MCP Server thành công.",
-    "output": "Chưa thể trả lời chi tiết do chưa nhận được dữ liệu từ MCP Server (hãy hoàn thành TODO 2.1).",
-    "latency_ms": 10.0
+    "thought": "Gemini phản hồi trực tiếp bằng văn bản (không cần gọi công cụ).",
+    "output": "Thông tin về ngày phép năm của nhân viên **Lê Hoàng Nam (VF2026001)** như sau:\n\n- **Tổng số ngày phép năm:** 12 ngày\n- **Số ngày đã sử dụng:** 4 ngày\n- **Số ngày phép còn lại:** **8 ngày**",
+    "latency_ms": 3075.66
+  },
+  {
+    "step": 1,
+    "query": "Tôi là nhân viên mã VF2026001, hãy tạo giúp tôi một đơn xin nghỉ phép năm từ ngày 20/10/2026 đến hết ngày 21/10/2026 với lý do giải quyết việc gia đình.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Gemini quyết định gọi công cụ 'create_leave_request' với tham số: {\"employee_id\": \"VF2026001\", \"start_date\": \"2026-10-20\", \"reason\": \"giải quyết việc gia đình\", \"end_date\": \"2026-10-21\", \"leave_type\": \"annual_leave\"}",
+    "tool_name": "create_leave_request",
+    "arguments": {
+      "employee_id": "VF2026001",
+      "start_date": "2026-10-20",
+      "reason": "giải quyết việc gia đình",
+      "end_date": "2026-10-21",
+      "leave_type": "annual_leave"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "request_id": "LR-VF2026001-20261020",
+      "approval_status": "PENDING_APPROVAL",
+      "employee_id": "VF2026001",
+      "leave_type": "annual_leave",
+      "start_date": "2026-10-20",
+      "end_date": "2026-10-21",
+      "days_requested": 2,
+      "reason": "giải quyết việc gia đình",
+      "message": "Đã tạo đơn nghỉ phép năm 2 ngày (20/10/2026 - 21/10/2026) cho nhân viên Lê Hoàng Nam (VF2026001), mã đơn LR-VF2026001-20261020, đang chờ Quản lý trực tiếp phê duyệt."
+    },
+    "latency_ms": 6639.68
+  },
+  {
+    "step": 2,
+    "query": "Tôi là nhân viên mã VF2026001, hãy tạo giúp tôi một đơn xin nghỉ phép năm từ ngày 20/10/2026 đến hết ngày 21/10/2026 với lý do giải quyết việc gia đình.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Gemini phản hồi trực tiếp bằng văn bản (không cần gọi công cụ).",
+    "output": "Đơn xin nghỉ phép năm của bạn đã được tạo thành công trên hệ thống HR với thông tin chi tiết như sau:\n\n- **Mã nhân viên:** VF2026001 (Lê Hoàng Nam)\n- **Mã đơn:** `LR-VF2026001-20261020`\n- **Loại nghỉ:** Nghỉ phép năm (`annual_leave`)\n- **Thời gian nghỉ:** Từ ngày **20/10/2026** đến hết ngày **21/10/2026** (Tổng cộng: 2 ngày)\n- **Lý do:** Giải quyết việc gia đình\n- **Trạng thái:** Đang chờ Quản lý trực tiếp phê duyệt (`PENDING_APPROVAL`)",
+    "latency_ms": 71054.48
+  },
+  {
+    "step": 1,
+    "query": "Tôi là nhân viên VF2026001. Hãy kiểm tra xem tôi còn bao nhiêu ngày phép năm, nếu còn đủ ít nhất 2 ngày thì tạo luôn đơn xin nghỉ phép ngày 25 và 26 tháng này giúp tôi nhé.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Gemini quyết định gọi công cụ 'check_leave_balance' với tham số: {\"employee_id\": \"VF2026001\"}",
+    "tool_name": "check_leave_balance",
+    "arguments": {
+      "employee_id": "VF2026001"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "employee_id": "VF2026001",
+      "full_name": "Lê Hoàng Nam",
+      "leave_balance": {
+        "total": 12,
+        "used": 4,
+        "remaining": 8
+      },
+      "message": "Nhân viên Lê Hoàng Nam (VF2026001) còn 8/12 ngày phép năm."
+    },
+    "latency_ms": 26905.59
+  },
+  {
+    "step": 2,
+    "query": "Tôi là nhân viên VF2026001. Hãy kiểm tra xem tôi còn bao nhiêu ngày phép năm, nếu còn đủ ít nhất 2 ngày thì tạo luôn đơn xin nghỉ phép ngày 25 và 26 tháng này giúp tôi nhé.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Gemini quyết định gọi công cụ 'create_leave_request' với tham số: {\"start_date\": \"2026-09-25\", \"employee_id\": \"VF2026001\", \"reason\": \"Nghỉ phép cá nhân\", \"end_date\": \"2026-09-26\", \"leave_type\": \"annual_leave\"}",
+    "tool_name": "create_leave_request",
+    "arguments": {
+      "start_date": "2026-09-25",
+      "employee_id": "VF2026001",
+      "reason": "Nghỉ phép cá nhân",
+      "end_date": "2026-09-26",
+      "leave_type": "annual_leave"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "request_id": "LR-VF2026001-20260925",
+      "approval_status": "PENDING_APPROVAL",
+      "employee_id": "VF2026001",
+      "leave_type": "annual_leave",
+      "start_date": "2026-09-25",
+      "end_date": "2026-09-26",
+      "days_requested": 2,
+      "reason": "Nghỉ phép cá nhân",
+      "message": "Đã tạo đơn nghỉ phép năm 2 ngày (25/09/2026 - 26/09/2026) cho nhân viên Lê Hoàng Nam (VF2026001), mã đơn LR-VF2026001-20260925, đang chờ Quản lý trực tiếp phê duyệt."
+    },
+    "latency_ms": 2869.24
+  },
+  {
+    "step": 3,
+    "query": "Tôi là nhân viên VF2026001. Hãy kiểm tra xem tôi còn bao nhiêu ngày phép năm, nếu còn đủ ít nhất 2 ngày thì tạo luôn đơn xin nghỉ phép ngày 25 và 26 tháng này giúp tôi nhé.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Gemini phản hồi trực tiếp bằng văn bản (không cần gọi công cụ).",
+    "output": "Chào anh **Lê Hoàng Nam (VF2026001)**,\n\nDưới đây là thông tin tra cứu và kết quả tạo đơn xin nghỉ phép của anh:\n\n### 1. Thông tin ngày phép năm:\n* **Tổng số ngày phép:** 12 ngày\n* **Số ngày đã sử dụng:** 4 ngày\n* **Số ngày phép còn lại:** **8 ngày** (Đủ điều kiện nghỉ phép 2 ngày)\n\n---\n\n### 2. Thông tin đơn xin nghỉ phép đã tạo:\n* **Mã đơn:** `LR-VF2026001-20260925`\n* **Loại nghỉ:** Nghỉ phép năm (*annual leave*)\n* **Thời gian nghỉ:** Từ ngày **25/09/2026** đến ngày **26/09/2026** (Tổng cộng: 2 ngày)\n* **Lý do:** Nghỉ phép cá nhân\n* **Trạng thái:** Đang chờ Quản lý trực tiếp phê duyệt (*PENDING_APPROVAL*)\n\nĐơn đã được gửi thành công lên hệ thống HR. Quản lý trực tiếp của anh sẽ xem xét và phê duyệt theo quy định.",
+    "latency_ms": 50259.24
+  },
+  {
+    "step": 1,
+    "query": "Tôi muốn tra cứu số ngày phép năm còn lại và quyền lợi gói bảo hiểm sức khỏe Vinmec cho mã nhân viên VF9999999.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Gemini quyết định gọi công cụ 'check_leave_balance' với tham số: {\"employee_id\": \"VF9999999\"}",
+    "tool_name": "check_leave_balance",
+    "arguments": {
+      "employee_id": "VF9999999"
+    },
+    "observation": {
+      "status": "NOT_FOUND",
+      "message": "Không tìm thấy hồ sơ nhân sự có mã nhân viên 'VF9999999'."
+    },
+    "latency_ms": 10384.76
+  },
+  {
+    "step": 2,
+    "query": "Tôi muốn tra cứu số ngày phép năm còn lại và quyền lợi gói bảo hiểm sức khỏe Vinmec cho mã nhân viên VF9999999.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Gemini quyết định gọi công cụ 'query_employee_benefits' với tham số: {\"employee_id\": \"VF9999999\"}",
+    "tool_name": "query_employee_benefits",
+    "arguments": {
+      "employee_id": "VF9999999"
+    },
+    "observation": {
+      "status": "NOT_FOUND",
+      "message": "Không tìm thấy hồ sơ nhân sự có mã nhân viên 'VF9999999'."
+    },
+    "latency_ms": 2241.57
+  },
+  {
+    "step": 3,
+    "query": "Tôi muốn tra cứu số ngày phép năm còn lại và quyền lợi gói bảo hiểm sức khỏe Vinmec cho mã nhân viên VF9999999.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Gemini phản hồi trực tiếp bằng văn bản (không cần gọi công cụ).",
+    "output": "Hệ thống không tìm thấy hồ sơ nhân sự với mã nhân viên **VF9999999**. \n\nAnh/Chị vui lòng kiểm tra lại mã nhân viên của mình hoặc liên hệ với phòng Nhân sự để được hỗ trợ tra cứu thông tin chính xác.",
+    "latency_ms": 7481.84
   }
 ]

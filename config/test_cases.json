@@ -1,0 +1,37 @@
+[
+  {
+    "id": "TC01",
+    "type": "direct_query",
+    "question": "Chào bạn, bạn có thể giới thiệu quy định nghỉ phép năm cơ bản của VinFast không?",
+    "expected_behavior": "Agent trả lời trực tiếp từ quy định nhân sự trong System Prompt, không cần gọi bất kỳ Tool nào.",
+    "complexity": "Low"
+  },
+  {
+    "id": "TC02",
+    "type": "single_tool_query",
+    "question": "Hãy kiểm tra giúp tôi số ngày phép năm còn lại của nhân viên VF2026001.",
+    "expected_behavior": "Agent nhận diện nhu cầu tra cứu số dư phép, tự động phát sinh Tool Call 'check_leave_balance' với mã VF2026001.",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC03",
+    "type": "leave_request_creation",
+    "question": "Tôi là nhân viên mã VF2026001, hãy tạo giúp tôi một đơn xin nghỉ phép năm từ ngày 20/10/2026 đến hết ngày 21/10/2026 với lý do giải quyết việc gia đình.",
+    "expected_behavior": "Agent nhận diện ý định tạo đơn nghỉ phép, tự động phát sinh Tool Call 'create_leave_request' với đầy đủ tham số: employee_id ('VF2026001'), leave_type ('annual_leave'), start_date ('2026-10-20'), end_date ('2026-10-21') và reason ('giải quyết việc gia đình').",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC04",
+    "type": "multi_step_reasoning",
+    "question": "Tôi là nhân viên VF2026001. Hãy kiểm tra xem tôi còn bao nhiêu ngày phép năm, nếu còn đủ ít nhất 2 ngày thì tạo luôn đơn xin nghỉ phép ngày 25 và 26 tháng này giúp tôi nhé.",
+    "expected_behavior": "Agent thực hiện chuỗi suy luận ReAct đa bước: Đầu tiên gọi Tool 'check_leave_balance' với mã VF2026001 để kiểm tra số dư phép. Sau khi quan sát thấy số ngày phép còn lại >= 2, Agent tự động tiếp tục gọi Tool 'create_leave_request' để hoàn tất việc gửi đơn nghỉ phép.",
+    "complexity": "High"
+  },
+  {
+    "id": "TC05",
+    "type": "edge_case_handling",
+    "question": "Tôi muốn tra cứu số ngày phép năm còn lại và quyền lợi gói bảo hiểm sức khỏe Vinmec cho mã nhân viên VF9999999.",
+    "expected_behavior": "Agent gọi Tool 'check_leave_balance' (hoặc 'query_employee_benefits') với mã VF9999999, nhận kết quả NOT_FOUND từ cơ sở dữ liệu HR/MCP Server, và đưa ra phản hồi lịch sự thông báo không tìm thấy hồ sơ nhân sự, tuyệt đối không suy diễn hay bịa đặt số dư phép giả.",
+    "complexity": "Medium"
+  }
+]
